@@ -1,12 +1,13 @@
 import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native'
 import React, { useState, useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import {createUserWithEmailAndPassword,getAuth} from "firebase/auth"
+import {createUserWithEmailAndPassword,getAuth, updateProfile} from "firebase/auth"
 
 
 
 const RegisterScreen = () => {
     let [email,setEmail] = useState('')
+    let [name,setName] = useState('')
     let [password,setPassword] = useState('')
     let navigation = useNavigation()
     
@@ -17,7 +18,9 @@ const RegisterScreen = () => {
         createUserWithEmailAndPassword(auth, email.trim(), password.trim())
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user.email)
+          updateProfile(auth.currentUser,{
+            displayName:name,
+          })
         })
         .catch((error) => {
           alert(error.message)
@@ -33,14 +36,20 @@ const RegisterScreen = () => {
         <Text className="mb-2 text-3xl font-bold text-white">Let's sign you up.</Text>
         <Text className="mb-2 text-3xl font-bold text-gray-300">Welcome Back.</Text>
         <Text className="mb-10 text-3xl font-bold text-gray-300">You've been missed.</Text>
-      <TextInput placeholder='Email'
-          onChangeText={newText => setEmail(newText)}
-          defaultValue={email}
+        <TextInput placeholder='Name'
+          onChangeText={setName}
+          defaultValue={name}
           placeholderTextColor="gray" 
           className="p-3 bg-[#36353E] border-[#5A5A64] text-gray-300 border-2 text-lg  font-bold w-full rounded-xl px-2 "
           />      
+      <TextInput placeholder='Email'
+          onChangeText={setEmail}
+          defaultValue={email}
+          placeholderTextColor="gray" 
+          className="p-3 bg-[#36353E] border-[#5A5A64] text-gray-300 border-2 text-lg mt-3  font-bold w-full rounded-xl px-2 "
+          />      
         <TextInput placeholder='Password'
-        onChangeText={newText => setPassword(newText)}
+        onChangeText={setPassword}
         placeholderTextColor="gray" 
         className="p-3 bg-[#36353E] border-[#5A5A64] text-gray-300 border-2 text-lg font-bold w-full rounded-xl mt-3 px-2 mb-5"
         defaultValue={password} 

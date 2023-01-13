@@ -1,7 +1,6 @@
 import { signOut } from 'firebase/auth';
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { auth } from "../firebase"
-
 
 
 const AuthContext = createContext({})
@@ -23,7 +22,7 @@ export const AuthProvider = ({children}) => {
   },[])
 
 
-  const logOut = ()=>{
+const logOut = ()=>{
     signOut(auth).catch(error => alert(error.message));
   }
 

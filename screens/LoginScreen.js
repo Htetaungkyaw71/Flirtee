@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Image, KeyboardAvoidingView } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { signInWithEmailAndPassword, getAuth } from 'firebase/auth'
@@ -21,7 +21,10 @@ const LoginScreen = () => {
         }); 
     }
   return (
-    <View className="flex-1 px-6 justify-around bg-[#18171F]">
+    <KeyboardAvoidingView className="flex-1"
+    keyboardVerticalOffset={10} 
+    behavior={Platform.OS === 'ios' ?'padding':'height'}>
+ <View className="flex-1 px-6 justify-around bg-[#18171F]">
       <View></View>
       <View>
       <View className=" justify-center items-center mb-10">
@@ -63,6 +66,8 @@ const LoginScreen = () => {
       </View>
     
     </View>
+      </KeyboardAvoidingView>
+   
   )
 }
 

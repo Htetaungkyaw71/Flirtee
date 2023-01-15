@@ -5,6 +5,7 @@ import useAuth from '../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native'
 import { db } from '../firebase'
 
+
 const ModalScreen = () => {
     const [image,setImage] = useState(null)
     const [job,setJob] = useState(null)
@@ -86,6 +87,9 @@ const ModalScreen = () => {
                 Update Profile
             </Text>
         </TouchableOpacity>
+
+
+  
     </View>
   )
 }

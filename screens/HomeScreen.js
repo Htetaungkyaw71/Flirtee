@@ -63,52 +63,48 @@ const HomeScreen = () => {
         return unsub
     },[])
 
-    const swipeTop = async(cardIndex) =>{
+    const swiperTop = async(cardIndex) =>{
         if(!profiles[cardIndex]) return;
         let userPassed = profiles[cardIndex]
         setDoc(doc(db,'users',user.uid,'passes',userPassed.id),userPassed)
     }
 
-    const swipeBottom = async(cardIndex) =>{
+    const swiperBottom = async(cardIndex) =>{
         if(!profiles[cardIndex]) return;
         let userMatch = profiles[cardIndex]
         let loggedInUser = userProfile[0]
 
-        console.log("bottom")
-        setDoc(doc(db,'users',user.uid,'match',userMatch.id),userMatch)
+        getDoc(doc(db,'users',userMatch.id,'match',user.uid)).then(snapshot=>{
+            if(snapshot.exists()){
+                setDoc(doc(db,'users',user.uid,'match',userMatch.id),userMatch)
+                setDoc(doc(db,'likes',generate(user.uid,userMatch.id)),{
+                    users:{
+                        [user.uid]:loggedInUser,
+                        [userMatch.id]:userMatch
+                    },
+                    userMatches:[user.uid,userMatch.id],
+                    timestamp:serverTimestamp()
+                })
+                navigation.navigate('Match',{
+                    loggedInUser,userMatch
+                })
 
-        // getDoc(db,'users',userMatch.id,'match',user.uid).then(snapshot=>{
-        //     if(snapshot.exists()){
-        //         console.log("Match")
-        //         console.log("Log",loggedInUser)
-        //         console.log("Mtach",userMatch)
-        //         setDoc(doc(db,'users',user.uid,'match',userMatch.id),userMatch)
-        //         setDoc(doc(db,'likes',generate(user.uid,userMatch.id)),{
-        //             users:{
-        //                 [user.uid]:loggedInUser,
-        //                 [userMatch.id]:userMatch
-        //             },
-        //             userMatches:[user.uid,userMatch.id],
-        //             timestamp:serverTimestamp()
-        //         })
-        //         navigation.navigate('Match',{
-        //             loggedInUser,userMatch
-        //         })
-
-        //     }else{
-        //         setDoc(doc(db,'users',user.uid,'match',userMatch.id),userMatch)
-        //     }
-        // })
+            }else{
+                setDoc(doc(db,'users',user.uid,'match',userMatch.id),userMatch)
+            }
+        })
 
     }
+
+  
     
     
     return (
         <View className="flex-1 bg-[#18171F]">
             {/* Header */}
             <View className="flex-row items-center justify-between  p-4 mt-10">
-                <TouchableOpacity>
-                    <Image source={{uri:userProfile && userProfile[0].image ? userProfile[0].image :"https://thispersondoesnotexist.com/image"}} className="w-10 h-10 rounded-full"/>
+                <TouchableOpacity onPress={()=>navigation.navigate('Logout')}>
+                    <Image source={{uri:userProfile && userProfile[0] ? userProfile[0].image :"https://i.ibb.co/PC35gMm/profile-logo.png"}} className="w-10 h-10 rounded-full"/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={()=>navigation.navigate('Modal')}>
                     <Image source={require("../assets/logo.png")} className="w-10 h-10 rounded-full"/>
@@ -154,8 +150,8 @@ const HomeScreen = () => {
                     cardIndex={0}
                     backgroundColor={'#4FD0E9'}
                     stackSize= {5}
-                    onSwipedTop={(cardIndex)=>swipeTop(cardIndex)}
-                    onSwipedBottom={(cardIndex)=>swipeBottom(cardIndex)}
+                    onSwipedTop={(cardIndex)=>swiperTop(cardIndex)}
+                    onSwipedBottom={(cardIndex)=>swiperBottom(cardIndex)}
                     overlayLabels={{
                         top:{
                             title:"Nope",

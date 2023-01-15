@@ -5,6 +5,7 @@ import Nav from './Nav';
 import { TextInput } from 'react-native';
 
 
+
 function App() {
   TextInput.defaultProps = TextInput.defaultProps || {};
   TextInput.defaultProps.selectionColor = 'gray';

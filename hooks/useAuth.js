@@ -3,12 +3,14 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import { auth } from "../firebase"
 
 
+
 const AuthContext = createContext({})
 
 
 export const AuthProvider = ({children}) => {
   let [user,setUser] = useState(null);
   let [loadingInitial,setLoadingInitial] = useState(true)
+
   useEffect(()=>{
     const unsubscribe = auth.onAuthStateChanged(user=>{
       if(user){
@@ -20,6 +22,8 @@ export const AuthProvider = ({children}) => {
     setLoadingInitial(false)
     return unsubscribe
   },[])
+
+ 
 
 
 const logOut = ()=>{

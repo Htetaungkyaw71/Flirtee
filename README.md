@@ -4,7 +4,7 @@ Simple dating mobile application.
 
 ## Description
 
-A simple ating mobile application. Users can create account and can swipe cards and can send message if users have liked each other.
+A simple dating mobile application. Users can create account and can swipe cards and can send message if users have liked each other.
 
 ## Getting Started
 ```

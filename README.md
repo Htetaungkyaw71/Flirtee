@@ -12,6 +12,8 @@ git clone git@github.com:Htetaungkyaw71/Flirtee.git
 ```
 ### Screenshot
 
+<img src="./s1.jpg" width="150" height="280">
+
   ![This is an image](./s1.jpg)
   ![This is an image](./s2.jpg)
   ![This is an image](./s3.jpg)

@@ -11,10 +11,10 @@ A simple ating mobile application. Users can create account and can swipe cards 
 git clone git@github.com:Htetaungkyaw71/Flirtee.git
 ```
 ### Screenshot
-![This is an image](./s1.png)
-![This is an image](./s2.png)
-![This is an image](./s3.png)
-![This is an image](./s4.png)
+![This is an image](./s1.jpg)
+![This is an image](./s2.jpg)
+![This is an image](./s3.jpg)
+![This is an image](./s4.jpg)
 
 ### Live demo
 
